@@ -2,7 +2,11 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator')
+const bcrypt =  require('bcrypt')
+const jwt = require('jsonwebtoken');
 
+
+// const JWT_SECRET="iampratapmajge$webdev@s/wdev"
 
 // Create user using POST "/api/auth" // no login required
 router.post('/createuser', [
@@ -20,16 +24,27 @@ router.post('/createuser', [
             return res.status(400).json({ errors: errors.array() })
         }
         // check whether same mail exist already
-        let user = await User.findOne({email : req.body.email})
-        if(user){
-            return res.status(400).json({error: "User with this email already exist"})
+        let user = await User.findOne({ email: req.body.email })
+        if (user) {
+            return res.status(400).json({ error: "User with this email already exist" })
         }
-        user =  User.create({
+
+        const salt = await bcrypt.genSalt(10);
+        const SecPassword = await bcrypt.hash(req.body.password , salt)
+
+        user =await User.create({
             name: req.body.name,
-            password: req.body.password,
+            password: SecPassword,
             email: req.body.email
         })
-        res.json({message : "User created "})
+        const data={
+            user:{
+                id:user.id
+            }
+        }
+        const authToken= jwt.sign(data , process.env.JWT_SECRET)
+        // console.log(authToken)
+        res.json({authToken})
 
         // .then(user => res.json({ message: "User created successfully", user }))
         // .catch(err => {
@@ -40,7 +55,7 @@ router.post('/createuser', [
 
 
     } catch (error) {
-        console.error("Error creating user:", error);
+        console.error("Error during creating user:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
