@@ -38,7 +38,7 @@ router.post('/createuser', [
 
         // Generate authentication token
         const data = { user: { id: user.id } };
-        const authToken = jwt.sign(data, process.env.JWT_SECRET);
+        const authToken = jwt.sign(data,"iampratapmajge$webdev@s/wdev");
         res.json({ authToken });
 
     } catch (error) {
@@ -76,7 +76,7 @@ router.post('/login', [
 
         // Generate authentication token
         const data = { user: { id: user.id } };
-        const authToken = jwt.sign(data, process.env.JWT_SECRET);
+        const authToken = jwt.sign(data, "iampratapmajge$webdev@s/wdev");
         res.json({ authToken });
 
     } catch (error) {

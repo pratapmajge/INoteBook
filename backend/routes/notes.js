@@ -34,7 +34,6 @@ router.post('/addnote', fetchuser, [
             title, description, tag, user: req.user.id
         })
         const savedNote = await note.save()
-
         res.json(savedNote)
     } catch (error) {
         console.error("Error during user creation:", error);
@@ -70,7 +69,6 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
 
 // route 4 :delete note  using DELETE "/api/notes/deletenote". login required
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {
-    const { title, description, tag } = req.body
 
     try {
         //find note to be deleted and delete it
@@ -81,7 +79,6 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
         if (note.user.toString() !== req.user.id) {
             return res.status(401).send("Not Allowed")
         }
-
         note = await Notes.findByIdAndDelete(req.params.id);
         res.json({ "success": "Note has benn deleted", note: note })
     } catch (error) {

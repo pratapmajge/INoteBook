@@ -1,7 +1,7 @@
 const dotenv= require('dotenv')
 dotenv.config();
 const mongoose= require('mongoose')
-const mongoURI = process.env.MONGO_URL
+const mongoURI = "mongodb+srv://inotebook:pratap123@user.zwuze.mongodb.net/?retryWrites=true&w=majority&appName=User"
 
 const connectToMongo =  async () =>{
         try{

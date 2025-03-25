@@ -6,7 +6,7 @@ const express = require('express')
 connectToMongo()
 
 const app = express()
-const port = process.env.PORT
+const port = 5000
 //define middleware
 app.use(express.json())
 
