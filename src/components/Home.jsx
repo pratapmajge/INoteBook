@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Notes from './Notes'
 
 function Home() {
+  
   return (
     <div>
       <div className='container m-3'>
@@ -23,9 +25,7 @@ function Home() {
         </form>
       </div>
 
-      <div className='container m-3'>
-        <h1>view note</h1>
-      </div>
+      <Notes/>
     </div>
   )
 }
