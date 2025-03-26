@@ -1,12 +1,10 @@
+import { useState } from "react";
 import NoteContext from "./NoteContext.jsx";
 
-const NoteState =(props)=>{
-    const state={
-        "name":"Pratap",
-        "class":"comp"
-    }
-    return(
-        <NoteContext.Provider value={state}>
+const NoteState = (props) => {
+
+    return (
+        <NoteContext.Provider value={{}}>
             {props.children}
         </NoteContext.Provider>
     )

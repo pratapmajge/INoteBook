@@ -7,20 +7,21 @@ import About from './components/About'
 import NoteState from './context/notes/NoteState.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <NoteState>
-        <Router>
-          <Navbar />
-
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-          </Routes>
-
-        </Router>
+        
+          <Router>
+            <Navbar />
+            <div className="container">
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/about' element={<About />} />
+            </Routes>
+            </div>
+          </Router>
+       
       </NoteState>
     </>
   )
