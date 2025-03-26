@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Home from './components/Home'
 import About from './components/About'
 import NoteState from './context/notes/NoteState.jsx'
+import Alert from './components/Alert.jsx'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         
           <Router>
             <Navbar />
+            <Alert message='This is alert'/>
             <div className="container">
             <Routes>
               <Route path='/' element={<Home />} />
