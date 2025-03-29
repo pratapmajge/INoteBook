@@ -27,7 +27,15 @@ const NoteState = (props) => {
 
     //Add note
     const addNote = (title ,description,tag) => {
-        note=null
+        note= {
+            "_id": "67e1617669d7cc36418497baae2",
+            "user": "67e161057cc36418497baadd45",
+            "title": "Akshay Title added",
+            "description": "this is first note of user added",
+            "tag": "personal",
+            "date": "2025-03-24T13:43:57.499Z",
+            "__v": 0
+        }
         setNotes(notes.push(note))
     }
     //delete Note
