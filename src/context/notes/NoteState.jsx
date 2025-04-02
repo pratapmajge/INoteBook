@@ -48,8 +48,8 @@ const NoteState = (props) => {
         setNotes(notes.concat(note))
     }
     //delete Note
-    const deleteNote = () => {
-
+    const deleteNote = (id) => {
+        console.log("delete note", id)
     }
     // edit Note
     const editNote = () => {
