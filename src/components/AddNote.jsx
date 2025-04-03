@@ -28,10 +28,11 @@ function AddNote() {
                     <label htmlFor="description" className="form-label">Description</label>
                     <input type="text" className="form-control" onChange={onChange} id="description" name='description' />
                 </div>
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">Tag</label>
+                    <input type="text" className="form-control" onChange={onChange} id="tag" name='tag' />
                 </div>
+               
                 <button type="submit" className="btn btn-primary my-2" onClick={handleclick}>Add Note</button>
             </form>
         </div>
