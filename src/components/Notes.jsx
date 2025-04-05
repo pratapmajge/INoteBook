@@ -6,19 +6,22 @@ import AddNote from './AddNote'
 
 function Notes() {
     const context = useContext(NoteContext)
-    const { notes , getNotes } = context
-    useEffect(()=>{
+    const { notes, getNotes } = context
+    useEffect(() => {
         getNotes()
-    },[])
+    }, [])
+    const updateNote = (note) => {
+        
+    }
     return (
         <>
-        <AddNote/>
-        <div className='row m-3'>
-            <h1>view note</h1>
-            {notes.map((note) => {
-                return <NoteItem key={note._id} note={note} />
-            })}
-        </div>
+            <AddNote />
+            <div className='row m-3'>
+                <h1>view note</h1>
+                {notes.map((note) => {
+                    return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                })}
+            </div>
         </>
     )
 }
