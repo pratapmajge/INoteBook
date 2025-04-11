@@ -6,6 +6,8 @@ import Home from './components/Home'
 import About from './components/About'
 import NoteState from './context/notes/NoteState.jsx'
 import Alert from './components/Alert.jsx'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
 
 function App() {
 

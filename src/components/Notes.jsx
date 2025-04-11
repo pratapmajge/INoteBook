@@ -1,28 +1,55 @@
-import React, { useContext, useEffect, useRef } from 'react'
-import NoteContext from '../context/notes/NoteContext'
-import NoteItem from './NoteItem'
-import AddNote from './AddNote'
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import NoteContext from '../context/notes/NoteContext';
+import NoteItem from './NoteItem';
+import AddNote from './AddNote';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 
 function Notes() {
-    const context = useContext(NoteContext)
-    const { notes, getNotes } = context
+    const context = useContext(NoteContext);
+    const { notes, getNotes } = context;
+
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
+    const ref = useRef(null);
+
     useEffect(() => {
-        getNotes()
-    }, [])
-    const updateNote = (note) => {
-        ref.current.click()
-    }
-    const ref = useRef(null)
+        getNotes();
+    }, []);
+
+    const updateNote = (currentNote) => {
+        setNote({
+            id: currentNote._id,
+            etitle: currentNote.title,
+            edescription: currentNote.description,
+            etag: currentNote.tag
+        });
+        ref.current.click();
+    };
+
+    const onChange = (e) => {
+        setNote({ ...note, [e.target.name]: e.target.value });
+    };
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        console.log("Updated note:", note);
+        // Call context method to update note here
+    };
 
     return (
         <>
             <AddNote />
-            <button type="button" ref={ref} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button
+                type="button"
+                ref={ref}
+                className="btn btn-primary d-none"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+            >
                 Launch demo modal
             </button>
 
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -30,38 +57,58 @@ function Notes() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form className='my-3'>
+                            <form className="my-3">
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
-                                    <input type="text" className="form-control" onChange={onChange} id="title" name='title' aria-describedby="emailHelp" />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="etitle"
+                                        name="etitle"
+                                        value={note.etitle}
+                                        onChange={onChange}
+                                    />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" onChange={onChange} id="description" name='description' />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="edescription"
+                                        name="edescription"
+                                        value={note.edescription}
+                                        onChange={onChange}
+                                    />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" onChange={onChange} id="tag" name='tag' />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="etag"
+                                        name="etag"
+                                        value={note.etag}
+                                        onChange={onChange}
+                                    />
                                 </div>
-
-                                <button type="submit" className="btn btn-primary my-2" onClick={handleclick}>Click To Add Note </button>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Update Note</button>
+                            <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='row m-3'>
-                <h1>view note</h1>
-                {notes.map((note) => {
-                    return <NoteItem key={note._id} updateNote={updateNote} note={note} />
-                })}
+
+            <div className="row m-3">
+                <h1>View Notes</h1>
+                {notes.map((note) => (
+                    <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                ))}
             </div>
         </>
-    )
+    );
 }
 
-export default Notes
+export default Notes;
