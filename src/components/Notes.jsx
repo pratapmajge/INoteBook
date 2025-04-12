@@ -7,10 +7,11 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 function Notes() {
     const context = useContext(NoteContext);
-    const { notes, getNotes } = context;
+    const { notes, getNotes, editNote } = context;
 
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
     const ref = useRef(null);
+    const refClose = useRef(null)
 
     useEffect(() => {
         getNotes();
@@ -31,8 +32,10 @@ function Notes() {
     };
 
     const handleClick = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         console.log("Updated note:", note);
+        editNote(note.id, note.etitle, note.edescription, note.etag)
+        refClose.current.click()
         // Call context method to update note here
     };
 
@@ -94,7 +97,7 @@ function Notes() {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
                         </div>
                     </div>
@@ -103,6 +106,7 @@ function Notes() {
 
             <div className="row m-3">
                 <h1>View Notes</h1>
+                {notes.length === 0 && 'No notes to display'}
                 {notes.map((note) => (
                     <NoteItem key={note._id} updateNote={updateNote} note={note} />
                 ))}
