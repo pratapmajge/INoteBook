@@ -52,6 +52,7 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists()
 ], async (req, res) => {
+    let success= false
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -65,19 +66,22 @@ router.post('/login', [
         console.log("User Found:", user);
 
         if (!user) {
+            success= false
             return res.status(400).json({ error: "Invalid email or password" });
         }
 
         // Compare provided password with stored hashed password
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Invalid email or password" });
+            success= false
+            return res.status(400).json({ success, error: "Invalid email or password" });
         }
 
         // Generate authentication token
         const data = { user: { id: user.id } };
         const authToken = jwt.sign(data, "iampratapmajge$webdev@s/wdev");
-        res.json({ authToken });
+        success =true
+        res.json({ success, authToken });
 
     } catch (error) {
         console.error("Error during login:", error);

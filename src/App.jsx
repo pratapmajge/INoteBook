@@ -7,6 +7,8 @@ import About from './components/About'
 import NoteState from './context/notes/NoteState.jsx'
 import Alert from './components/Alert.jsx'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import Login from './components/Login.jsx'
+import Signup from './components/Signup.jsx'
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
             </Routes>
             </div>
           </Router>
