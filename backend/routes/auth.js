@@ -12,17 +12,18 @@ router.post('/createuser', [
     body('password', 'Enter a valid password (min 5 characters)').isLength({ min: 5 }),
     body('email', 'Enter a valid email').isEmail()
 ], async (req, res) => {
+    let success= false
     try {
         // Validate request body
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({success, errors: errors.array() });
         }
 
         // Check if user with the same email already exists
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: "User with this email already exists" });
+            return res.status(400).json({ success , error: "User with this email already exists" });
         }
 
         // Hash the password before storing
@@ -39,7 +40,8 @@ router.post('/createuser', [
         // Generate authentication token
         const data = { user: { id: user.id } };
         const authToken = jwt.sign(data,"iampratapmajge$webdev@s/wdev");
-        res.json({ authToken });
+        success= true
+        res.json({success, authToken });
 
     } catch (error) {
         console.error("Error during user creation:", error);
