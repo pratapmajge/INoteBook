@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import NoteContext from '../context/notes/NoteContext'
 
-function AddNote() {
+function AddNote(props) {
     const context = useContext(NoteContext)
     const { addNote } = context
 
@@ -12,6 +12,7 @@ function AddNote() {
         if (note.title && note.description) {
             addNote(note.title, note.description, note.tag)
             setNote({ title: "", description: "", tag: "" }) // clear fields
+            props.showalert("Note added successfully" , "success")
         }
     }
 

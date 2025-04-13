@@ -5,7 +5,7 @@ import AddNote from './AddNote';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 
-function Notes() {
+function Notes(props) {
     const context = useContext(NoteContext);
     const { notes, getNotes, editNote } = context;
 
@@ -36,12 +36,13 @@ function Notes() {
         console.log("Updated note:", note);
         editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click()
+        props.showalert("Note updated successfully" , "success")
         // Call context method to update note here
     };
 
     return (
         <>
-            <AddNote />
+        <AddNote showalert={props.showalert}/>
             <button
                 type="button"
                 ref={ref}
@@ -110,7 +111,7 @@ function Notes() {
                     {notes.length === 0 && 'No notes to display'}
                 </div>
                 {notes.map((note) => (
-                    <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                    <NoteItem key={note._id} updateNote={updateNote} showalert={props.showalert} note={note} />
                 ))}
             </div>
         </>
