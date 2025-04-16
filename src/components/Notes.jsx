@@ -3,18 +3,25 @@ import NoteContext from '../context/notes/NoteContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { useNavigate } from 'react-router-dom';
 
 
 function Notes(props) {
     const context = useContext(NoteContext);
     const { notes, getNotes, editNote } = context;
-
+    const nevigate = useNavigate()
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
     const ref = useRef(null);
     const refClose = useRef(null)
 
     useEffect(() => {
-        getNotes();
+        if (localStorage.getItem('token')) {
+            getNotes();
+        }
+        else{
+            nevigate('/login')
+        }
+        
     }, []);
 
     const updateNote = (currentNote) => {

@@ -21,7 +21,7 @@ function Signup(props) {
         console.log(json)
         if (json.success) {
             //redirect
-            localStorage.setItem('token', json.authtoken)
+            localStorage.setItem('token', json.authToken)
             nevigate('/')
             props.showalert("Account created successfully" , "success")
 
