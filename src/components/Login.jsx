@@ -23,7 +23,7 @@ function Login(props) {
             // Ensure the token exists before saving
             if (json.authToken) {
                 localStorage.setItem('token', json.authToken);
-                console.log("Token saved:", json.authtoken);  // This will confirm if the token is saved
+                console.log("Token saved:", json.authToken);  // This will confirm if the token is saved
             } else {
                 console.log("No token received in response");
             }

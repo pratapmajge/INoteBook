@@ -3,7 +3,7 @@ import NoteContext from "./NoteContext.jsx";
 
 const NoteState = (props) => {
 
-    const host = import.meta.env.VITE_PORT
+    const host = "http://localhost:5000"
     const notesinitial = []
     const [notes, setNotes] = useState(notesinitial)
 
