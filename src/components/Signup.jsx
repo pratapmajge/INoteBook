@@ -8,7 +8,7 @@ function Signup(props) {
         e.preventDefault()
         // fetch("localhost:5000/api/auth/login")
         const { name, email, password } = credentials
-        const response = await fetch("http://localhost:5000/api/auth/createuser", {
+        const response = await fetch(`${import.meta.env.VITE_PORT}/api/auth/createuser`, {
 
             method: "POST",
             headers: {
